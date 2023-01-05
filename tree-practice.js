@@ -6,18 +6,90 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 
 function findMinBST (rootNode) {
   // Your code here
+if (rootNode.left) return findMinBST(rootNode.left)
+return rootNode.val
+
+
 }
 
 function findMaxBST (rootNode) {
   // Your code here
+  if (rootNode.right) return findMaxBST(rootNode.right)
+  return rootNode.val
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+
+  // if right or left = null stop
+  /*----------------recusion------------------------------- */
+  // if (rootNode === null ) return
+  // let res = rootNode.val;
+  // let left = findMinBT(rootNode.left);
+
+  // let right = findMinBT(rootNode.right);
+
+  // if (left < res) {
+  //   res = left
+  // }
+  // if (right < res) {
+  //   res = right;
+  // }
+  // return res
+/**-------------Iteration-------------------------- */
+if (!rootNode) return;
+const queue = [];
+const arr = [];
+queue.push(rootNode);
+while (queue.length) {
+  const curr = queue.shift();
+  // DO THE THING!!!
+  arr.push(curr.val)
+
+  Math.min(...arr)
+
+  if (curr.left) queue.push(curr.left);
+  if (curr.right) queue.push(curr.right);
+
+
+}
+console.log(Math.min(...arr))
+return Math.min(...arr) ;
 }
 
 function findMaxBT (rootNode) {
   // Your code here
+  //use Math.max
+//   if (!rootNode) return;
+// const queue = [];
+// const arr = [];
+// queue.push(rootNode);
+// while (queue.length) {
+//   const curr = queue.shift();
+//   // DO THE THING!!!
+//   arr.push(curr.val)
+
+//   Math.max(...arr)
+
+//   if (curr.left) queue.push(curr.left);
+//   if (curr.right) queue.push(curr.right);
+
+
+// }
+// console.log(Math.max(...arr))
+// return Math.max(...arr) ;
+
+/* --------------------recusion-------------------------- */
+
+if (rootNode === null) return;
+
+let res = rootNode.val
+let left = findMaxBT(rootNode.left)
+let right = findMaxBT(rootNode.right)
+
+if (left > res) res = left
+if (right > res) res = right
+
+return res
 }
 
 function getHeight (rootNode) {
@@ -55,7 +127,7 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side, 
+  //  Replace target node with the left most child on its right side,
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
 
